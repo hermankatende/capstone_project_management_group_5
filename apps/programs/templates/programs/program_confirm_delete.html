@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>Delete Program</h3>
+  <p>Are you sure you want to delete "<strong>{{ program.name }}</strong>" ? This action cannot be undone.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn" type="submit">Yes, delete</button>
+    <a href="{% url 'program_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
