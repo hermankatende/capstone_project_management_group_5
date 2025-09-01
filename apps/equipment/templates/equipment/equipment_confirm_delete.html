@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Delete Equipment{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h3>Delete Equipment</h3>
+  <p>Are you sure you want to delete "<strong>{{ equipment.name }}</strong>"?</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn" type="submit">Yes, Delete</button>
+    <a href="{% url 'equipment_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
