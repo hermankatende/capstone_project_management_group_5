@@ -1,29 +1,41 @@
 {% extends "base.html" %}
-{% block title %}Service{% endblock %}
+{% block title %}Services{% endblock %}
+
 {% block content %}
 <div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;">
     <h2>Services</h2>
-    <a class="btn" href="{% url 'program_create' %}">New Service</a>
+    <a class="btn" href="{% url 'service_create' %}">Add Service</a>
   </div>
 
   <table class="table">
     <thead>
-      <tr><th>Name</th><th>Focus Areas</th><th>Phases</th><th>Actions</th></tr>
+      <tr>
+        <th>Name</th>
+        <th>Facility</th>
+        <th>Category</th>
+        <th>Skill Type</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-      {% for s in service %}
+      {% for service in services %}
       <tr>
-        <td>{{ s.name }}</td>
-        <td>{{ s.focus_areas|default:"—" }}</td>
-        <td>{{ s.phases|default:"—" }}</td>
+        <td>{{ service.name }}</td>
+        <td>{{ service.facility.name }}</td>
+        <td>{{ service.category }}</td>
+        <td>{{ service.skill_type }}</td>
+        <td>{{ service.description }}</td>
         <td>
-          <a href="{% url 'service_edit' p.pk %}">Edit</a> |
-          <a href="{% url 'service_delete' p.pk %}">Delete</a>
+          <a href="{% url 'service_edit' service.pk %}">Edit</a> |
+          <a href="{% url 'service_delete' service.pk %}">Delete</a>
         </td>
       </tr>
       {% empty %}
-      <tr><td colspan="4">No services yet</td></tr>
+      <tr>
+        <td colspan="6">No services available</td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>

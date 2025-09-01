@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}{% if facility %}Edit Facility{% else %}Add Program{% endif %}{% endblock %}
+{% block title %}{% if facility %}Edit Facility{% else %}Add Facility{% endif %}{% endblock %}
+
 {% block content %}
 <div class="card">
-  <h2>{% if program %}Edit Program{% else %}Add Facility{% endif %}</h2>
+  <h2>{% if facility %}Edit Facility{% else %}Add Facility{% endif %}</h2>
+
   <form method="POST" class="form-row">
     {% csrf_token %}
     {{ form.as_p }}

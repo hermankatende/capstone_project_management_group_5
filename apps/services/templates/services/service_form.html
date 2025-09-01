@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block title %}{% if service %}Edit Service{% else %}Add Service{% endif %}{% endblock %}
+
 {% block content %}
 <div class="card">
   <h2>{% if service %}Edit Service{% else %}Add Service{% endif %}</h2>
+
   <form method="POST" class="form-row">
     {% csrf_token %}
     {{ form.as_p }}

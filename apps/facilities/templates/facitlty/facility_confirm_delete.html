@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% block title %}Delete Facility{% endblock %}
+
 {% block content %}
 <div class="card">
-  <h3>Delete Faclity</h3>
-  <p>Are you sure you want to delete "<strong>{{ program.name }}</strong>" ? This action cannot be undone.</p>
+  <h3>Delete Facility</h3>
+  <p>Are you sure you want to delete "<strong>{{ facility.name }}</strong>"?</p>
+
   <form method="POST">
     {% csrf_token %}
-    <button class="btn" type="submit">Yes, delete</button>
+    <button class="btn" type="submit">Yes, Delete</button>
     <a href="{% url 'facility_list' %}">Cancel</a>
   </form>
 </div>
