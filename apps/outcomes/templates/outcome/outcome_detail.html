@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Outcome Details</h2>
+    
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ outcome.title }}</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Description:</strong> {{ outcome.description }}</p>
+            <p><strong>Associated Project:</strong> {{ outcome.project.name }}</p>
+            <p><strong>Status:</strong> {{ outcome.status }}</p>
+            <p><strong>Created At:</strong> {{ outcome.created_at|date:"M d, Y" }}</p>
+            <p><strong>Updated At:</strong> {{ outcome.updated_at|date:"M d, Y" }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'outcome_edit' outcome.pk %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'outcome_delete' outcome.pk %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'outcome_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
