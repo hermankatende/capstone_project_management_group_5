@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>{{ project.title }}</h2>
+  <p><strong>Program:</strong> {{ project.program.name }}</p>
+  <p><strong>Facility:</strong> {{ project.facility.name }}</p>
+  <p><strong>Description:</strong> {{ project.description }}</p>
+
+  <h3>Assigned Participants</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Skill</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for assignment in assignments %}
+      <tr>
+        <td>{{ assignment.participant.full_name }}</td>
+        <td>{{ assignment.role_on_project }}</td>
+        <td>{{ assignment.skill_role }}</td>
+        <td>
+          <a href="{% url 'remove_assignment' assignment.id %}">Remove</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No participants assigned yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn" href="{% url 'assign_participant' project.id %}">Assign New Participant</a>
+  <br><br>
+  <a href="{% url 'project_list' %}">Back to Projects</a>
+</div>
+{% endblock %}

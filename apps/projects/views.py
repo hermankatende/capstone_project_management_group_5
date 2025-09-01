@@ -41,3 +41,11 @@ def project_delete(request, pk):
         messages.success(request, 'Project deleted successfully.')
         return redirect('project_list')
     return render(request, 'projects/project_confirm_delete.html', {'project': project})
+
+def project_detail(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    assignments = project.projectparticipant_set.select_related("participant")
+    return render(request, "projects/project_detail.html", {
+        "project": project,
+        "assignments": assignments,
+    })
