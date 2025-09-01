@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Assign Participant{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Assign Participant to {{ project.title }}</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+    
+    <label>Choose Participant:</label>
+    <select name="participant" required>
+      {% for p in participants %}
+      <option value="{{ p.id }}">{{ p.full_name }} ({{ p.affiliation }})</option>
+      {% endfor %}
+    </select>
+    <br><br>
+
+    <label>Role on Project:</label>
+    <input type="text" name="role_on_project" placeholder="e.g., Student, Lecturer" required><br><br>
+
+    <label>Skill Role:</label>
+    <input type="text" name="skill_role" placeholder="e.g., Developer, Designer" required><br><br>
+
+    <button class="btn" type="submit">Assign</button>
+    <a href="{% url 'project_detail' project.pk %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
