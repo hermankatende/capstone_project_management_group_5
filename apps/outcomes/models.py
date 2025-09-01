@@ -1,5 +1,5 @@
 from django.db import models
-from projects.models import Project
+from apps.projects.models import Project
 
 class Outcome(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='outcomes')

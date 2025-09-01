@@ -1,6 +1,6 @@
 from django.db import models
-from programs.models import Program
-from facilities.models import Facility
+from apps.programs.models import Program
+from apps.facilities.models import Facility
 
 class Project(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='projects')

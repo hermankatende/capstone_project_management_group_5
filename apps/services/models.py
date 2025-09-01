@@ -1,5 +1,5 @@
 from django.db import models
-from facilities.models import Facility
+from apps.facilities.models import Facility
 
 class Service(models.Model):
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE, related_name='services')

@@ -1,5 +1,5 @@
 from django.db import models
-from projects.models import Project
+from apps.projects.models import Project
 
 class Participant(models.Model):
     full_name = models.CharField(max_length=140)
