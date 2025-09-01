@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Delete Outcome{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h3>Delete Outcome</h3>
+  <p>Are you sure you want to delete this outcome for project "<strong>{{ outcome.project.title }}</strong>"?</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn" type="submit">Yes, Delete</button>
+    <a href="{% url 'outcome_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
