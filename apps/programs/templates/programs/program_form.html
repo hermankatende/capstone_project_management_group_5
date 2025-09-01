@@ -1,9 +1,10 @@
-<h1>Programs</h1>
-<a href="{% url 'program_create' %}">Add Program</a>
-<ul>
-  {% for program in programs %}
-    <li>{{ program.name }} - {{ program.description }}</li>
-  {% empty %}
-    <li>No programs found</li>
-  {% endfor %}
-</ul>
+<h1>Add Program</h1>
+<form method="POST">
+  {% csrf_token %}
+  <label>Name:</label><input type="text" name="name"><br>
+  <label>Description:</label><textarea name="description"></textarea><br>
+  <label>National Alignment:</label><input type="text" name="national_alignment"><br>
+  <label>Focus Areas:</label><input type="text" name="focus_areas"><br>
+  <label>Phases:</label><input type="text" name="phases"><br>
+  <button type="submit">Save</button>
+</form>
