@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Capstone Dashboard{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><a href="{% url 'dashboard' %}">Capstone PM</a></div>
+    <nav class="mainnav">
+      <a href="{% url 'program_list' %}">Programs</a>
+      <a href="{% url 'facility_list' %}">Facilities</a>
+      <a href="{% url 'service_list' %}">Services</a>
+      <a href="{% url 'equipment_list' %}">Equipment</a>
+      <a href="{% url 'project_list' %}">Projects</a>
+      <a href="{% url 'participant_list' %}">Participants</a>
+      <a href="{% url 'outcome_list' %}">Outcomes</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <small>Capstone Project Management • Built with Django</small>
+  </footer>
+</body>
+</html>
