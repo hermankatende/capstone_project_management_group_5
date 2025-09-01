@@ -4,10 +4,24 @@ from .forms import ProgramForm
 from django.contrib import messages
 
 def dashboard(request):
-    # small dashboard showing counts and quick links
+    from apps.projects.models import Project
+    from apps.participants.models import Participant
+    from apps.outcomes.models import Outcome
+    from apps.facilities.models import Facility
+    from apps.equipment.models import Equipment
+    from apps.services.models import Service
+
     data = {
         'program_count': Program.objects.count(),
-        # later you can import other models counts for unified dashboard
+        'project_count': Project.objects.count(),
+        'participant_count': Participant.objects.count(),
+        'outcome_count': Outcome.objects.count(),
+        'facility_count': Facility.objects.count(),
+        'equipment_count': Equipment.objects.count(),
+        'service_count': Service.objects.count(),
+        'recent_programs': Program.objects.order_by('-created_at')[:5],
+        'recent_projects': Project.objects.order_by('-created_at')[:5],
+        'recent_outcomes': Outcome.objects.order_by('-created_at')[:5],
     }
     return render(request, 'programs/dashboard.html', data)
 

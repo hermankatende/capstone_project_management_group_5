@@ -1,24 +1,75 @@
 {% extends "base.html" %}
 {% block title %}Dashboard - Capstone{% endblock %}
 {% block content %}
-<div class="h-row">
-  <div class="card col">
-    <h3>Project Management Dashboard</h3>
-    <p>Programs: <strong>{{ program_count }}</strong></p>
-    <p>
-      Quick actions:
-      <a class="btn" href="{% url 'program_create' %}">Add Program</a>
-      <a class="btn" href="{% url 'project_list' %}">View Projects</a>
-    </p>
+<div style="display: flex; gap: 0; align-items: flex-start;">
+  <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 18px;">
+    <div class="card">
+      <h3>System Overview</h3>
+      <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:12px;">
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#39e17a;">&#9679;</span> <strong>Programs:</strong> <span id="count-programs">{{ program_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#222;">&#9679;</span> <strong>Projects:</strong> <span id="count-projects">{{ project_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#39e17a;">&#9679;</span> <strong>Participants:</strong> <span id="count-participants">{{ participant_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#222;">&#9679;</span> <strong>Outcomes:</strong> <span id="count-outcomes">{{ outcome_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#39e17a;">&#9679;</span> <strong>Facilities:</strong> <span id="count-facilities">{{ facility_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#222;">&#9679;</span> <strong>Equipment:</strong> <span id="count-equipment">{{ equipment_count }}</span></li>
+        <li style="display:flex;align-items:center;gap:6px;"><span style="font-size:1.5em;color:#39e17a;">&#9679;</span> <strong>Services:</strong> <span id="count-services">{{ service_count }}</span></li>
+      </ul>
+      <canvas id="dashboard-bar-chart" style="max-width:220px;height:120px;margin:12px auto 0 auto;display:block;"></canvas>
+      <div style="margin-top:12px;">
+        <a class="btn" href="{% url 'program_create' %}">Add Program</a>
+        <a class="btn" href="{% url 'project_list' %}">View Projects</a>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Recent Activity</h4>
+      <ul style="list-style:none;padding:0;">
+        {% for program in recent_programs %}
+          <li><span style="color:#39e17a;font-weight:bold;">Program:</span> {{ program.name }} <small>({{ program.created_at|date:"M d, Y" }})</small></li>
+        {% endfor %}
+        {% for project in recent_projects %}
+          <li><span style="color:#222;font-weight:bold;">Project:</span> {{ project.title }} <small>({{ project.created_at|date:"M d, Y" }})</small></li>
+        {% endfor %}
+        {% for outcome in recent_outcomes %}
+          <li><span style="color:#39e17a;font-weight:bold;">Outcome:</span> {{ outcome.title }} <small>({{ outcome.created_at|date:"M d, Y" }})</small></li>
+        {% endfor %}
+        {% if not recent_programs and not recent_projects and not recent_outcomes %}
+          <li>No recent activity.</li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
-
-  <div class="card col">
-    <h4>Links</h4>
-    <ul>
-      <li><a href="{% url 'facility_list' %}">Facilities</a></li>
-      <li><a href="{% url 'service_list' %}">Services</a></li>
-      <li><a href="{% url 'equipment_list' %}">Equipment</a></li>
-    </ul>
+  <div style="width:2px; background:var(--accent); min-height:100%; margin:0 24px; border-radius:2px;"></div>
+  <div style="flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 18px;">
+    <div class="card">
+      <h4>Recent Programs</h4>
+      <ul>
+        {% for program in recent_programs %}
+          <li>{{ program.name }} <small>({{ program.created_at|date:"M d, Y" }})</small></li>
+        {% empty %}
+          <li>No recent programs.</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Recent Projects</h4>
+      <ul>
+        {% for project in recent_projects %}
+          <li>{{ project.title }} <small>({{ project.created_at|date:"M d, Y" }})</small></li>
+        {% empty %}
+          <li>No recent projects.</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Recent Outcomes</h4>
+      <ul>
+        {% for outcome in recent_outcomes %}
+          <li>{{ outcome.title }} <small>({{ outcome.created_at|date:"M d, Y" }})</small></li>
+        {% empty %}
+          <li>No recent outcomes.</li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </div>
 {% endblock %}
