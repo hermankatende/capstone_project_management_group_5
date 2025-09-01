@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Capstone{% endblock %}
+{% block content %}
+<div class="h-row">
+  <div class="card col">
+    <h3>Project Management Dashboard</h3>
+    <p>Programs: <strong>{{ program_count }}</strong></p>
+    <p>
+      Quick actions:
+      <a class="btn" href="{% url 'program_create' %}">Add Program</a>
+      <a class="btn" href="{% url 'project_list' %}">View Projects</a>
+    </p>
+  </div>
+
+  <div class="card col">
+    <h4>Links</h4>
+    <ul>
+      <li><a href="{% url 'facility_list' %}">Facilities</a></li>
+      <li><a href="{% url 'service_list' %}">Services</a></li>
+      <li><a href="{% url 'equipment_list' %}">Equipment</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
