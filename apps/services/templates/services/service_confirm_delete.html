@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>Delete Service</h3>
+  <p>Are you sure you want to delete "<strong>{{ service.name }}</strong>" ? This action cannot be undone.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn" type="submit">Yes, delete</button>
+    <a href="{% url 'service_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
