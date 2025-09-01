@@ -1,9 +1,31 @@
-<h1>Programs</h1>
-<a href="{% url 'program_create' %}">Add Program</a>
-<ul>
-  {% for program in programs %}
-    <li>{{ program.name }} - {{ program.description }}</li>
-  {% empty %}
-    <li>No programs found</li>
-  {% endfor %}
-</ul>
+{% extends "base.html" %}
+{% block title %}Programs{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h2>Programs</h2>
+    <a class="btn" href="{% url 'program_create' %}">New Program</a>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr><th>Name</th><th>Focus Areas</th><th>Phases</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for p in programs %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.focus_areas|default:"—" }}</td>
+        <td>{{ p.phases|default:"—" }}</td>
+        <td>
+          <a href="{% url 'program_edit' p.pk %}">Edit</a> |
+          <a href="{% url 'program_delete' p.pk %}">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No programs yet</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
