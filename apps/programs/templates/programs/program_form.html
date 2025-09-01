@@ -1,0 +1,9 @@
+<h1>Programs</h1>
+<a href="{% url 'program_create' %}">Add Program</a>
+<ul>
+  {% for program in programs %}
+    <li>{{ program.name }} - {{ program.description }}</li>
+  {% empty %}
+    <li>No programs found</li>
+  {% endfor %}
+</ul>
