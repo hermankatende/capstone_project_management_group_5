@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service
 from .forms import ServiceForm
-from facilities.models import Facility
+from apps.facilities.models import Facility
 from django.contrib import messages
 
 def service_list(request):

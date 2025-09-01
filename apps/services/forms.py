@@ -1,6 +1,6 @@
 from django import forms
 from .models import Service
-from facilities.models import Facility
+from apps.facilities.models import Facility
 
 class ServiceForm(forms.ModelForm):
     class Meta:

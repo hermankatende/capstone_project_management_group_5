@@ -1,3 +1,20 @@
+def participant_delete(request, pk):
+    participant = get_object_or_404(Participant, pk=pk)
+    if request.method == 'POST':
+        participant.delete()
+        return redirect('participant_list')
+    return render(request, 'participants/participant_confirm_delete.html', {'participant': participant})
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Participant
+from .forms import ParticipantForm
+
+def participant_edit(request, pk):
+    participant = get_object_or_404(Participant, pk=pk)
+    form = ParticipantForm(request.POST or None, instance=participant)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('participant_list')
+    return render(request, 'participants/participant_form.html', {'form': form, 'participant': participant})
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Participant, ProjectParticipant
 from .forms import ParticipantForm, ProjectParticipantForm

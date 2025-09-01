@@ -5,12 +5,12 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(pattern_name='dashboard', permanent=False)),
-    path('dashboard/', include('programs.dashboard_urls')),  # dashboard entry (see below)
-    path('programs/', include('programs.urls')),
-    path('facilities/', include('facilities.urls')),
-    path('services/', include('services.urls')),
-    path('equipment/', include('equipment.urls')),
-    path('projects/', include('projects.urls')),
-    path('participants/', include('participants.urls')),
-    path('outcomes/', include('outcomes.urls')),
+    path('dashboard/', include('apps.programs.dashboard_urls')),  # dashboard entry (see below)
+    path('programs/', include('apps.programs.urls')),
+    path('facilities/', include('apps.facilities.urls')),
+    path('services/', include('apps.services.urls')),
+    path('equipment/', include('apps.equipment.urls')),
+    path('projects/', include('apps.projects.urls')),
+    path('participants/', include('apps.participants.urls')),
+    path('outcomes/', include('apps.outcomes.urls')),
 ]
