@@ -19,7 +19,8 @@
         <td>{{ p.phases|default:"—" }}</td>
         <td>
           <a href="{% url 'program_edit' p.pk %}">Edit</a> |
-          <a href="{% url 'program_delete' p.pk %}">Delete</a>
+          <a href="{% url 'program_delete' p.pk %}">Delete</a> |
+          <a href="{% url 'program_projects' p.pk %}">View Projects</a>
         </td>
       </tr>
       {% empty %}

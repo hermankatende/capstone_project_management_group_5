@@ -7,7 +7,5 @@ urlpatterns = [
     path('<int:pk>/edit/', views.participant_edit, name='participant_edit'),
     path('<int:pk>/delete/', views.participant_delete, name='participant_delete'),
 
-    # Project assignments
-    path('assign/<int:project_id>/', views.assign_participant, name='assign_participant'),
-    path('remove/<int:assignment_id>/', views.remove_assignment, name='remove_assignment'),
+    # Project assignments removed
 ]

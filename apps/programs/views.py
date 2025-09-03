@@ -1,3 +1,8 @@
+from apps.projects.models import Project
+def program_projects(request, program_id):
+    program = get_object_or_404(Program, pk=program_id)
+    projects = Project.objects.filter(program=program).order_by('-created_at')
+    return render(request, 'programs/program_projects.html', {'program': program, 'projects': projects})
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Program
 from .forms import ProgramForm

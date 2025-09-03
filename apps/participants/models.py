@@ -1,5 +1,5 @@
+
 from django.db import models
-from apps.projects.models import Project
 
 class Participant(models.Model):
     full_name = models.CharField(max_length=140)
@@ -12,12 +12,3 @@ class Participant(models.Model):
 
     def __str__(self):
         return self.full_name
-
-class ProjectParticipant(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_participants')
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='assignments')
-    role_on_project = models.CharField(max_length=80, blank=True)
-    skill_role = models.CharField(max_length=80, blank=True)
-
-    class Meta:
-        unique_together = ('project','participant')
