@@ -29,6 +29,19 @@ def facility_edit(request, pk):
 
 def facility_delete(request, pk):
     facility = get_object_or_404(Facility, pk=pk)
+    has_services = facility.services.exists()
+    has_equipment = facility.equipment.exists()
+    from apps.projects.models import Project
+    has_projects = Project.objects.filter(facility=facility).exists()
+    if has_services or has_equipment or has_projects:
+        messages.error(request, "Facility has dependent records (Services/Equipment/Projects).")
+        return redirect('facility_list')
+    if request.method == 'POST':
+        facility.delete()
+        messages.success(request, "Facility deleted successfully.")
+        return redirect('facility_list')
+    return render(request, 'facilities/facility_confirm_delete.html', {'facility': facility})
+    facility = get_object_or_404(Facility, pk=pk)
     if request.method=='POST':
         facility.delete()
         messages.success(request,'Facility deleted.')
