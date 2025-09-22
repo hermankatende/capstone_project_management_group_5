@@ -30,6 +30,23 @@ def service_edit(request, pk):
 
 def service_delete(request, pk):
     s = get_object_or_404(Service, pk=pk)
+    from apps.projects.models import Project
+    # Check if any Project at this facility references this service's category in testing_requirements
+    projects = Project.objects.filter(facility=s.facility)
+    in_use = False
+    for project in projects:
+        if s.category and s.category.lower() in (project.testing_requirements or '').lower():
+            in_use = True
+            break
+    if in_use:
+        messages.error(request, "Service in use by Project testing requirements.")
+        return redirect('service_list')
+    if request.method == 'POST':
+        s.delete()
+        messages.success(request, "Service deleted successfully.")
+        return redirect('service_list')
+    return render(request, 'services/service_confirm_delete.html', {'service': s})
+    s = get_object_or_404(Service, pk=pk)
     if request.method=='POST':
         s.delete()
         messages.success(request,'Service deleted.')
