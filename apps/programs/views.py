@@ -59,6 +59,17 @@ def program_edit(request, pk):
 
 def program_delete(request, pk):
     program = get_object_or_404(Program, pk=pk)
+    from apps.projects.models import Project
+    has_projects = Project.objects.filter(program=program).exists()
+    if has_projects:
+        messages.error(request, "Program has Projects; archive or reassign before delete.")
+        return redirect('program_list')
+    if request.method == 'POST':
+        program.delete()
+        messages.success(request, "Program deleted successfully.")
+        return redirect('program_list')
+    return render(request, 'programs/program_confirm_delete.html', {'program': program})
+    program = get_object_or_404(Program, pk=pk)
     if request.method == 'POST':
         program.delete()
         messages.success(request, 'Program deleted.')
